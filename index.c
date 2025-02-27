@@ -6,14 +6,12 @@
 #define NAME_LENGTH 50
 #define ORDER_DETAILS_LENGTH 100
 
-// Enumeration for Order Status
 typedef enum {
     PENDING,
     PREPARING,
     COMPLETED
 } OrderStatus;
 
-// Structure to represent an Order
 typedef struct {
     int orderID;
     char customerName[NAME_LENGTH];
@@ -21,7 +19,7 @@ typedef struct {
     OrderStatus status;
 } Order;
 
-// Function Prototypes
+
 void addOrder(Order orders[], int *count);
 void updateOrderStatus(Order orders[], int count);
 void viewOrders(const Order orders[], int count);
@@ -46,7 +44,7 @@ int main() {
         printf("Enter your choice: ");
         
         if (scanf("%d", &choice) != 1) {
-            // Clear invalid input
+        
             while (getchar() != '\n');
             printf("Invalid input. Please enter a number between 1 and 5.\n");
             continue;
@@ -76,7 +74,7 @@ int main() {
     return 0;
 }
 
-// Function to add a new order
+
 void addOrder(Order orders[], int *count) {
     if (*count >= MAX_ORDERS) {
         printf("Order limit reached. Cannot add more orders.\n");
@@ -84,18 +82,18 @@ void addOrder(Order orders[], int *count) {
     }
 
     Order newOrder;
-    newOrder.orderID = (*count) + 1; // Simple incremental ID
+    newOrder.orderID = (*count) + 1; 
 
     printf("Enter Customer Name: ");
-    // Clear input buffer
+    
     while (getchar() != '\n');
     fgets(newOrder.customerName, NAME_LENGTH, stdin);
-    // Remove trailing newline
+    
     newOrder.customerName[strcspn(newOrder.customerName, "\n")] = 0;
 
     printf("Enter Order Details: ");
     fgets(newOrder.orderDetails, ORDER_DETAILS_LENGTH, stdin);
-    // Remove trailing newline
+    
     newOrder.orderDetails[strcspn(newOrder.orderDetails, "\n")] = 0;
 
     newOrder.status = PENDING;
@@ -106,7 +104,7 @@ void addOrder(Order orders[], int *count) {
     printf("Order added successfully! Order ID: %d\n", newOrder.orderID);
 }
 
-// Function to update the status of an existing order
+
 void updateOrderStatus(Order orders[], int count) {
     if (count == 0) {
         printf("No orders to update.\n");
@@ -121,7 +119,7 @@ void updateOrderStatus(Order orders[], int count) {
         return;
     }
 
-    // Search for the order by ID
+    
     int found = 0;
     for (int i = 0; i < count; i++) {
         if (orders[i].orderID == id) {
@@ -164,7 +162,7 @@ void updateOrderStatus(Order orders[], int count) {
     }
 }
 
-// Function to view all orders
+
 void viewOrders(const Order orders[], int count) {
     if (count == 0) {
         printf("No orders to display.\n");
@@ -262,7 +260,7 @@ void searchOrders(const Order orders[], int count) {
     }
 }
 
-// Helper function to get status text
+
 const char* getStatusText(OrderStatus status) {
     switch (status) {
         case PENDING:
@@ -276,7 +274,6 @@ const char* getStatusText(OrderStatus status) {
     }
 }
 
-// Helper function to convert string to uppercase
 void toUpperCase(char *str) {
     for (int i = 0; str[i]; i++) {
         if ('a' <= str[i] && str[i] <= 'z') {
